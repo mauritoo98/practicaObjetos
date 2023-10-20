@@ -3,9 +3,10 @@ class Socio:
         self.socio=[]
         self.nombre=input("Ingrese el nombre: ")
         self.antiguedad=int(input("Ingrese la antiguedad en años: "))
+        while self.antiguedad<=0:
+            self.antiguedad=int(input("Ingrese una antigueda mayor a 0: "))
         self.socio.append(self.nombre)
         self.socio.append(self.antiguedad)
-
     
 class Club:
     count=0
