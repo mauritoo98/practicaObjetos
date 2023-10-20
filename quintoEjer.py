@@ -11,6 +11,16 @@ class Banco:
         self.cliente.append(self.nombreCliente)
         self.cliente.append(self.comienzo)
 
+    
+    def agregaCliente():
+        count=0
+        listaClientes=[]
+        while count<3:
+            miBanco= Banco() 
+            count=count+1          
+            listaClientes.append(miBanco.cliente)
+        return listaClientes
+
     def ingreso(usuario, ingreso):
         usuario[1]=usuario[1]+ingreso
         print(f"el usuario {usuario[0]} tiene ${usuario[1]}")
@@ -22,31 +32,46 @@ class Banco:
             usuario[1]=usuario[1]-retiro
             print(f"el usuario {usuario[0]} tiene ${usuario[1]}")
 
+    def buscaCliente(listaCliente, opcion):
+        clienteEncontrado=""
+        for cliente in listaCliente:
+            if cliente[0]==opcion:
+                print(f"Usted selecciono el cliente {cliente[0]}")
+                clienteEncontrado=cliente
+        return clienteEncontrado
+
+
+
 
 def opciones():
-    count=0
-    listaClientes=[]
-    while count<3:
-        count=count+1
-        miBanco= Banco()           
-        listaClientes.append(miBanco.cliente)
+    clientes=Banco.agregaCliente()
+    opcion=int(input("1 para ingresar dinero, 2 para retirar, enter para salir"))
+    nombreCliente= input("Ingrese el nombre del cliente a buscar: ")
+    while opcion == 1 or opcion == 2:
+        if opcion==1:
+            dinero=int(input("Ingrese la cantidad de dinero a ingresar: "))
+            Banco.ingreso(Banco.buscaCliente(clientes,nombreCliente), dinero)
+            opcion=int(input("1 para ingresar dinero, 2 para retirar, enter para salir"))
+        elif opcion==2:
+            dinero=int(input("Ingrese la cantidad de dinero a ingresar: "))
+            Banco.retiro(Banco.buscaCliente(clientes,nombreCliente), dinero)
+            opcion=int(input("1 para ingresar dinero, 2 para retirar, enter para salir"))
 
-    for cliente in listaClientes:
-        print(f"Los clientes son {cliente[0]}")
-    opcion=input("Escriba el nombre del cliente: ")
-    for cliente in listaClientes:
-        while cliente[0]==opcion:
-            print(f"Usted selecciono el cliente {cliente[0]}")
-            sigue=int(input("Si desea continuar ingrese 1, 2 para otro cliente: "))
-            while sigue==1:
-                opcion2=int(input("ingrese 1 para ingresar dinero, 2 para retirar, 3 para salir: "))
-                if opcion2==1:
-                    dinero=int(input("Ingrese la cantidad de dinero a ingresar: "))
-                    Banco.ingreso(cliente, dinero)
-                elif opcion2==2:
-                    dinero=int(input("Ingrese la cantidad de dinero a retirar: "))
-                    Banco.retiro(cliente, dinero)
-                else:
-                    sigue=int(input("Si desea continuar ingrese 1, 2 para otro cliente: "))
 
 opciones()
+
+
+    # for i in listaClientes:
+    #     print(f"Los clientes son {i[0]}"
+    # opcion=input("Escriba el nombre del cliente: ")
+    # for cliente in listaClientes:
+    #     if cliente[0]==opcion:
+    #         print(f"Usted selecciono el cliente {cliente[0]}")
+    #         sigue=int(input("Si desea continuar ingrese 1, 2 para otro cliente: "))
+    #         while sigue==1:
+    #             opcion2=int(input("ingrese 1 para ingresar dinero, 2 para retirar, 3 para salir: "))
+    #             if opcion2==1:
+
+    #             elif opcion2==2:
+    #                 dinero=int(input("Ingrese la cantidad de dinero a retirar: "))
+    #                 Banco.retiro(cliente, dinero)
