@@ -1,7 +1,3 @@
-# un banco tiene tres clientes que pueden hacer depositos y extracciones se requiere
-# que el banco calcule al finalizar el dia la cantidad de dinero que hay depositado y tambien
-# que posee cada cliente
-
 class Banco:
 
     def __init__(self):
@@ -33,45 +29,45 @@ class Banco:
             print(f"el usuario {usuario[0]} tiene ${usuario[1]}")
 
     def buscaCliente(listaCliente, opcion):
-        clienteEncontrado=""
+        nombreCliente=""
+        objetoCliente=[]
+        clienteExiste= False
         for cliente in listaCliente:
             if cliente[0]==opcion:
                 print(f"Usted selecciono el cliente {cliente[0]}")
-                clienteEncontrado=cliente
-        return clienteEncontrado
-
-
+                nombreCliente= cliente
+                clienteExiste=True
+                objetoCliente.append(nombreCliente)
+                objetoCliente.append(clienteExiste)
+        return objetoCliente
 
 
 def opciones():
-    clientes=Banco.agregaCliente()
-    opcion=int(input("1 para ingresar dinero, 2 para retirar, enter para salir"))
-    nombreCliente= input("Ingrese el nombre del cliente a buscar: ")
-    while opcion == 1 or opcion == 2:
-        if opcion==1:
-            dinero=int(input("Ingrese la cantidad de dinero a ingresar: "))
-            Banco.ingreso(Banco.buscaCliente(clientes,nombreCliente), dinero)
-            opcion=int(input("1 para ingresar dinero, 2 para retirar, enter para salir"))
-        elif opcion==2:
-            dinero=int(input("Ingrese la cantidad de dinero a ingresar: "))
-            Banco.retiro(Banco.buscaCliente(clientes,nombreCliente), dinero)
-            opcion=int(input("1 para ingresar dinero, 2 para retirar, enter para salir"))
 
+    clientes=Banco.agregaCliente()
+    seguir=1
+    while seguir==1:
+        opcion=input("Ingrese el nombre a buscar: ")
+        objetoDevolucion=Banco.buscaCliente(clientes, opcion)
+        if len(objetoDevolucion)==2:
+            print("Ese cliente existe")
+            objetoCliente=objetoDevolucion[0]
+            opcion2=int(input("Si desea ingresar dinero escriba 1, para retirar 2, sino enter: "))
+            if opcion2==1:
+                    ingreso=int(input("Ingrese la cantidad a ingresar: "))
+                    Banco.ingreso(objetoCliente, ingreso)
+            elif opcion2==2:
+                    egreso=int(input("Ingrese la cantidad a retirar: "))
+                    Banco.retiro(objetoCliente, egreso)
+            else:
+                break
+        else: 
+            print("Ese cliente no existe")
+        seguir=int(input("Si desea seguir ingrese 1, para salir 2: "))
+    totalMes=0
+    for i in clientes:
+        print(f"El cliente {i[0]} tiene {i[1]}")
+        totalMes=i[1]+totalMes
+    print(f"El total depositado en el banco es de {totalMes}")
 
 opciones()
-
-
-    # for i in listaClientes:
-    #     print(f"Los clientes son {i[0]}"
-    # opcion=input("Escriba el nombre del cliente: ")
-    # for cliente in listaClientes:
-    #     if cliente[0]==opcion:
-    #         print(f"Usted selecciono el cliente {cliente[0]}")
-    #         sigue=int(input("Si desea continuar ingrese 1, 2 para otro cliente: "))
-    #         while sigue==1:
-    #             opcion2=int(input("ingrese 1 para ingresar dinero, 2 para retirar, 3 para salir: "))
-    #             if opcion2==1:
-
-    #             elif opcion2==2:
-    #                 dinero=int(input("Ingrese la cantidad de dinero a retirar: "))
-    #                 Banco.retiro(cliente, dinero)
